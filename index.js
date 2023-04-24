@@ -42,9 +42,6 @@ app.post("/", (req, res) => {
 });
 
 app.post("/send", (req, res) => {
-  email = "";
-  mensagem = "";
-
   if (req.body.subject == "" || req.body.conteudo == "") {
     mensagem = "Favor Prencher os campos";
     res.render("sendmail", { mensagem, email: "" });
