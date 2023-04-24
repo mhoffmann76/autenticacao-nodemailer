@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -41,12 +41,18 @@
 
           </div>
         </div>
-      </div>
+      </div> 
      
 
       <% if (email) { %>
-        <div class="col-8 alert alert-info mx-auto text-center">
-          <%= email %>
+        <div class="col-8 alert alert-success mx-auto text-center">
+          <%- email %>
+        </div>
+      <% } %>
+
+      <% if (mensagem) { %>
+        <div class="col-8 alert alert-danger mx-auto text-center">
+          <%- mensagem %>
         </div>
       <% } %>
 
@@ -61,37 +67,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<h1>Solicitações</h1>
-    <form method="post" action="/send">
-      <label for="subject">Assunto</label>
-      <input type="text" id="subject" name="subject" required /><br /><br />
-      <label for="conteudo">email</label>
-      <textarea id="conteudo" name="conteudo" required></textarea><br /><br />
-      <button type="submit">Enviar</button>
-    </form> -->
-  </body>
+      </body>
 </html>
