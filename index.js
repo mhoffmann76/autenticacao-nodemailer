@@ -17,32 +17,27 @@ app.set("view engine", "ejs");
 let login = "admin";
 let password = "1234";
 
-var email = "";
-var mensagem = "";
+let email = "";
+let mensagem = "";
 
 app.get("/", (req, res) => {
-  email = "";
-  mensagem = "";
-
   if (req.session.login) {
-    mensagem = "";
-    res.render("sendmail");
+    res.render("sendmail", { email: "", mensagem: "" });
 
     console.log("Usuário logado" + req.session.login);
   } else {
-    res.render("index", {mensagem});
+    res.render("index", { mensagem, email: "" });
   }
 });
 
 app.post("/", (req, res) => {
-  mensagem = "";
   if (req.body.password == password && req.body.login == login) {
     req.session.login = login;
 
-    res.render("sendmail", { email });
+    res.render("sendmail", { email, mensagem: "" });
   } else {
-    mensagem = "Verifique o usuário e a senha"
-    res.render("index", {mensagem });
+    mensagem = "Verifique o usuário e a senha";
+    res.render("index", { mensagem });
   }
 });
 
@@ -51,8 +46,8 @@ app.post("/send", (req, res) => {
   mensagem = "";
 
   if (req.body.subject == "" || req.body.conteudo == "") {
-    email = "Favor Prencher os campos";
-    res.render("sendmail", { email });
+    mensagem = "Favor Prencher os campos";
+    res.render("sendmail", { mensagem, email: "" });
   } else {
     const transport = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
@@ -60,6 +55,8 @@ app.post("/send", (req, res) => {
       auth: {
         user: "ec08f6f91806ed",
         pass: "8236c6b9b3fcb1",
+        //user: "0eb4a8abc5e910",
+        //pass: "c3bf02ce6b9598",
       },
     });
 
@@ -72,7 +69,7 @@ app.post("/send", (req, res) => {
       })
       .then((info) => {
         email = "Mensagem enviada com sucesso!";
-        res.render("sendmail", { email });
+        res.render("sendmail", { email, mensagem: "" });
       })
       .catch((error) => {
         debug(error);
